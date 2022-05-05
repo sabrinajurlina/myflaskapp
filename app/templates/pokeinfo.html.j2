@@ -11,9 +11,8 @@ Pokemon
 {% block content %}
 <h1>Pokemon Info</h1>
 <form action="{{url_for('pokeinfo')}}" method="POST">
-    {{form.hidden_tag()}}
+    {# {{form.hidden_tag()}} #}
     <div>
-    {# class="mb-3" #}
     {{form.pokemon.label(class="form-label")}}
     {{form.pokemon(class="form-control")}}
     {% for error in form.pokemon.errors %}
@@ -22,7 +21,7 @@ Pokemon
     </div>
 
     <div>
-    {{form.submit(class="btn btn-primary form-control")}}
+    {{form.submit(class="btn btn-primary form-control align-content-center")}}
     </div>  
 </form>
 
@@ -41,12 +40,12 @@ Pokemon
     </thead>
     <tbody>
       <tr>
-        <th scope="row">{{pokemon['name']}}</th>
+        <th scope="row">{{pokemon['name'].title()}}</th>
         <td>{{pokemon.base_experience}}</td>
         <td>{{pokemon.hp}}</td>
         <td>{{pokemon.attack}}</td>
         <td>{{pokemon.defense}}</td>
-        <td>{{pokemon.ability}}</td>
+        <td>{{pokemon.ability.title()}}</td>
         <td><img src= {{ pokemon.sprite }}></td>
       </tr>
     </tbody>
