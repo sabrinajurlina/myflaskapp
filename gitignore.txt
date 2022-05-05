@@ -1,4 +1,0 @@
-__pycache__
-*.txt
-.env
-.DS_store
