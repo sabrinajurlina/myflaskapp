@@ -1,5 +1,5 @@
 from app import db, login
-from flask_login import UserMixin
+from flask_login import UserMixin #only for the user model
 from datetime import datetime as dt
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -10,8 +10,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String, unique=True, index=True)
     password = db.Column(db.String)
     created_on = db.Column(db.DateTime, default=dt.utcnow)
+    icon = db.Column(db.String)
 
-    def __repr__(self):
+    def __repr__(self): #should return a unique identifying string
         return f'<User: {self.email} | {self.id}>'
 
     def __str__(self):
@@ -28,7 +29,16 @@ class User(UserMixin, db.Model):
         self.last_name = data['last_name']
         self.email = data['email']
         self.password = self.hash_password(data['password'])
+        self.icon = data['icon']
+        print(self.icon)
 
-    @login.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    def save(self):
+        db.session.add(self) #add user to db session
+        db.session.commit() #saves everything to db
+
+    def get_icon_url(self):
+        return f'https://ui-avatars.com/api/?name={self.icon.split()[0]}+{self.icon.split()[1]}&background=F3BB04&color=fff.svg'
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
