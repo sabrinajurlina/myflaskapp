@@ -1,0 +1,57 @@
+form{
+    height:auto;
+    width: 40%;
+}
+
+.btn{
+    background-color: rgb(243, 187, 4);
+    margin-top: 20px;
+    margin-bottom: 60px;
+    position:relative;
+    justify-content: center;
+}
+
+h1{
+    width: 40%;
+}
+
+.card{
+    background-color: rgb(48, 48, 48);
+    font-size: medium;
+}
+
+.card-title{
+    background-color: rgb(48, 48, 48);
+    font-size: 50px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: bold;
+    text-align: center;
+}
+
+.card img{
+    align-self: center;
+}
+
+.card h5{
+    background-color: rgb(48, 48, 48);
+    color: white;
+}
+
+.card-body{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.card ul{
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(48, 48, 48);
+}
+
+/* .card ul li{
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(90, 86, 86);
+} */

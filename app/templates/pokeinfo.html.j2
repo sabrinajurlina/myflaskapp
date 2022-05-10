@@ -1,0 +1,77 @@
+{% extends 'base.html.j2' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/pokeinfo.css')}}">
+{% endblock %}
+
+{% block title %}
+Pokemon
+{% endblock %}
+
+{% block content %}
+<h1>Pokemon Info</h1>
+<form action="{{url_for('main.pokeinfo')}}" method="POST">
+    {{form.hidden_tag()}}
+    <div>
+    {{form.pokemon.label(class="form-label")}}
+    {{form.pokemon(class="form-control")}}
+    {% for error in form.pokemon.errors %}
+      <small style="color:red;">{{error}}</small>
+    {% endfor %}
+    </div>
+
+    <div>
+    {{form.submit(class="btn btn-primary form-control align-content-center")}}
+    </div>  
+</form>
+
+{# {% if pokemon %}
+  <table class="table table-striped table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Base Experience</th>
+        <th scope="col">HP</th>
+        <th scope="col">Attack</th>
+        <th scope="col">Defense</th>
+        <th scope="col">Ability</th>
+        <th scope="col">Sprite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{pokemon['name'].title()}}</th>
+        <td>{{pokemon.base_experience}}</td>
+        <td>{{pokemon.hp}}</td>
+        <td>{{pokemon.attack}}</td>
+        <td>{{pokemon.defense}}</td>
+        <td>{{pokemon.ability.title()}}</td>
+        <td><img src= {{ pokemon.sprite }}></td>
+      </tr>
+    </tbody>
+  </table>
+{% endif %} #}
+
+{% if pokemon %}
+<div class="card" style="width:18rem;">
+  <img src={{ pokemon.sprite }} class="card-img-top">
+  {# style="height:100%; width:100%;" #}
+  <div class="card-body">
+    <h5 class="card-title">{{pokemon['name'].title()}}</h5>
+    {# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Base Experience: {{pokemon.base_experience}}</li>
+    <li class="list-group-item">HP: {{pokemon.hp}}</li>
+    <li class="list-group-item">Attack: {{pokemon.attack}}</li>
+    <li class="list-group-item">Defense: {{pokemon.defense}}</li>
+    <li class="list-group-item">Ability: {{pokemon.ability.title()}}</li>
+  </ul>
+  {# <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div> #}
+</div>
+{% endif %}
+
+{% endblock %}
