@@ -15,7 +15,7 @@ def register():
                 "last_name" : form.last_name.data.title(), 
                 "email" : form.email.data.lower(),
                 "password" : form.password.data,
-                "icon" : f'{form.first_name.data.title()} {form.last_name.data.title()}'
+                "icon" : f'{form.first_name.data.title()} {form.last_name.data.title()}' #need to refresh
             }
             #creates empty User
             new_user_object = User()
@@ -49,6 +49,7 @@ def login():
         return render_template("login.html.j2", form=form)
     return render_template("login.html.j2", form=form)
 
+
 @auth.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -58,7 +59,7 @@ def edit_profile():
                 "last_name": form.last_name.data.title(), 
                 "email": form.email.data.lower(),
                 "password": form.password.data,
-                "icon": form.icon
+                "icon": form.icon #is this doing anything?
             }
         user = User.query.filter_by(email=new_user_data["email"]).first() #only going to be one!
         if user and user.email != current_user.email:
@@ -73,6 +74,7 @@ def edit_profile():
             return redirect(url_for('auth.edit_profile'))
         return redirect(url_for('main.index'))
     return render_template('register.html.j2', form=form)
+
 
 @auth.route('/logout')
 @login_required

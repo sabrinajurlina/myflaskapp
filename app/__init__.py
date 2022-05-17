@@ -21,7 +21,7 @@ def create_app(config_class=Config):
     #register plug-ins
     login.init_app(app)
     db.init_app(app)
-    migrate.init_app(app, db)
+    migrate.init_app(app, db, render_as_batch=True)
 
     #configure some settings
     login.login_view ='auth.login'
@@ -34,6 +34,9 @@ def create_app(config_class=Config):
 
     from .blueprints.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
+
+    from .blueprints.game import bp as game_bp
+    app.register_blueprint(game_bp)
 
     return app
 # from app import routes, models

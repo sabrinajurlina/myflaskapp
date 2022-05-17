@@ -1,3 +1,50 @@
+.navbar-brand{
+    font-family:'Pokemon Solid', sans-serif;
+    font-size: 35px;
+}
+
+.btn{
+    background-color: rgb(243, 187, 4);
+    margin-top: 20px;
+    margin-bottom: 60px;
+    position:relative;
+    justify-content: center;
+}
+
+#catch_btn{
+    background-color: rgb(0, 0, 0);
+    margin-top: 20px;
+    margin-bottom: 60px;
+    position:relative;
+    justify-content: center;
+    width: 18rem;
+}
+
+#remove_btn{
+    background-color: rgb(0, 0, 0);
+    margin-top: 20px;
+    margin-bottom: 60px;
+    position:relative;
+    justify-content: center;
+    width: 18rem;
+}
+
+body{
+    background-image: url("poke_background_1.jpg");
+    background-color: #ffffff;
+    background-size: cover;
+    min-height: 100vh;
+}
+ 
 .container{
+    padding-top: 10%;
+    vertical-align: middle;
+    text-align: left;
+    color: white;
+    min-height: 100vh;
     margin-top: 50px;
+}
+
+form{
+    width: 40%;
 }
