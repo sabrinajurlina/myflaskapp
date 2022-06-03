@@ -29,19 +29,22 @@ def delete(name):
 
 
 @game.route('/show_team')
+@login_required
 def show_team():
     # show current user's team of pokemon
     team = current_user.show_team()
     return render_template('show_team.html.j2', team=team)
 
+
 @game.route('/show_players')
+@login_required
 def show_players():
-    players = User.query.filter(User.id != current_user.id).all()
+    players = current_user.show_players()
     return render_template('show_players.html.j2', players=players)
 
 
-# @game.route('/battle')
-# def battle(user):
-#     user = User.query.get(user).all()
-#     return render_template('show_users.html.j2', user=user)
-    #let the user see other players teams, and select a player to battle!
+@game.route('/battle/<int:id>')
+@login_required
+def battle(id):
+    winner = current_user.battle(id)
+    return render_template('battle.html.j2', winner=winner)

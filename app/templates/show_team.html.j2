@@ -9,8 +9,10 @@ Your Team
 {% endblock %}
 
 {% block content %}
+
 <div id="title">
-<h1>Your Team</h1>
+<h1>{{current_user.first_name}}'s Team</h1>
+<hr>
 </div>
 
     {% if team %}
@@ -27,12 +29,15 @@ Your Team
                 <li class="list-group-item">Attack: {{pokemon.attack}}</li>
                 <li class="list-group-item">Defense: {{pokemon.defense}}</li>
                 <li class="list-group-item">Ability: {{pokemon.ability.title()}}</li>
+                <li class="list-group-item">
+                    <a href="{{url_for('game.delete', name=pokemon.name)}}" id="delete_btn">Release Pokemon</a>
+                </li>
             </ul>
             </div>
         </div>
         {% endfor %}
     {% else %}
-        <p>You haven't caught any Pokemon yet! Click "Search Pokemon" to catch Pokemon and build your team.</p>
+        <p>You haven't caught any Pokemon yet! Click "Search" to catch Pokemon and build your team.</p>
     {% endif %}
 
 {% endblock %}

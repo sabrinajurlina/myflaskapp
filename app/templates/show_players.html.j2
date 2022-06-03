@@ -1,45 +1,40 @@
 {% extends 'base.html.j2' %}
 
 {% block title %}
-Other Players
+Opponents
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/show_players.css')}}">
 {% endblock %}
 
 {% block content %}
-<h1> Other Players </h1>
+<h1> Opponents </h1>
 <hr>
 
 {% if players %}
-        {% for pokemon in team %}
-        <div id="team_container">
-            <div class="card" style="width:15rem;">
-            <img src="{{ pokemon.sprite }}" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">{{pokemon['name'].title()}}</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Base Experience: {{pokemon.base_experience}}</li>
-                <li class="list-group-item">HP: {{pokemon.hp}}</li>
-                <li class="list-group-item">Attack: {{pokemon.attack}}</li>
-                <li class="list-group-item">Defense: {{pokemon.defense}}</li>
-                <li class="list-group-item">Ability: {{pokemon.ability.title()}}</li>
-            </ul>
-            </div>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p>We're sorry. There seem to be no other eligible players at this time. Come back later and try again!</p>
-    {% endif %}
-
-
-
-
-
-
-
-
-
-
-
-
+    {% for player in players %}
+            {% if player.team.count()>=1 %}
+                <div id="opponents">
+                    <div class="card" style="width:100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{player['first_name'].title()}}</h5>
+                    </div>
+                {% for pokemon in player.team %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{pokemon.name.upper()}}, Base: {{pokemon.base_experience}}, Ability: {{pokemon.ability.title()}}</li>
+                {% endfor %}
+                        <li class="list-group-item">Wins: {{player.wins}}, Losses: {{player.losses}}</li>
+                        <li class="list-group-item">
+                            <a href="{{url_for('game.battle', id=player.id)}}" id="battle_btn">Battle Opponent</a>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            {% endif %}
+    {% endfor %}
+{% else %}
+    <p>We're sorry. There are no eligible opponents at this time. Come back later and try again!</p>
+{% endif %}
 
 {% endblock %}

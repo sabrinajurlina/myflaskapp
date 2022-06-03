@@ -50,6 +50,8 @@ class User(UserMixin, db.Model):
                 backref='users',
                 lazy='dynamic'
                 )
+    wins = db.Column(db.Integer, default = 0)
+    losses = db.Column(db.Integer, default = 0)
 
     def __repr__(self): #should return a unique identifying string
         return f'<User: {self.email} | {self.id}>'
@@ -97,6 +99,44 @@ class User(UserMixin, db.Model):
     def show_team(self):
         team = self.team
         return team
+
+    def show_players(self):
+        players = User.query.filter(User.id != self.id).all()
+        return players
+
+    def battle(self, opponent_id):
+        if self.id != opponent_id:
+            opponent = User.query.filter(User.id == opponent_id).first()
+            #if self pokemon > opponent pokemon (by length of names?), self win count +=1
+            opp_score = []
+            for pokemon in opponent.team:
+                opp_points = pokemon.base_experience
+                opp_score.append(opp_points)
+            opp_final = sum(opp_score)
+            my_score = []
+            for pokemon in self.team:
+                my_points = pokemon.base_experience
+                my_score.append(my_points)
+            my_final = sum(my_score)
+            if my_final > opp_final:
+                winner = self
+                if self.wins is None:
+                    self.wins = 0 
+                self.wins += 1
+                if opponent.losses is None:
+                    opponent.losses = 0 
+                opponent.losses += 1
+                db.session.commit()
+            else:
+                winner = opponent
+                if opponent.wins is None:
+                    opponent.wins = 0 
+                opponent.wins += 1
+                if self.losses is None:
+                    self.losses = 0 
+                self.losses += 1
+                db.session.commit()
+            return winner
 
 
 @login.user_loader
