@@ -1,7 +1,7 @@
 {% extends 'base.html.j2' %}
 
 {% block css %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/pokeinfo.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/build_team.css')}}">
 {% endblock %}
 
 {% block title %}
@@ -9,8 +9,8 @@ Pokemon
 {% endblock %}
 
 {% block content %}
-<h1>Pokemon Info</h1>
-<form action="{{url_for('main.pokeinfo')}}" method="POST">
+<h1>Search</h1>
+<form action="{{url_for('main.build_team')}}" method="POST">
     {{form.hidden_tag()}}
     <div>
     {{form.pokemon.label(class="form-label")}}
@@ -21,7 +21,7 @@ Pokemon
     </div>
 
     <div>
-    {{form.submit(class="btn btn-primary form-control align-content-center")}}
+    {{form.submit(class="btn btn-dark form-control align-content-center")}}
     </div>  
 </form>
 
@@ -54,10 +54,10 @@ Pokemon
 
 {% if pokemon %}
 <div class="card" style="width:18rem;">
-  <img src={{ pokemon.sprite }} class="card-img-top">
+  <img src="{{ pokemon.sprite }}" class="card-img-top">
   {# style="height:100%; width:100%;" #}
   <div class="card-body">
-    <h5 class="card-title">{{pokemon['name'].title()}}</h5>
+    <h5 class="card-title">{{pokemon.name.title()}}</h5>
     {# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
   </div>
   <ul class="list-group list-group-flush">
@@ -67,11 +67,23 @@ Pokemon
     <li class="list-group-item">Defense: {{pokemon.defense}}</li>
     <li class="list-group-item">Ability: {{pokemon.ability.title()}}</li>
   </ul>
-  {# <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div> #}
 </div>
+
+  
+  {% if pokemon not in current_user.team %}
+  <div>
+  <a href="{{url_for('game.catch', name=pokemon.name)}}" id="catch_btn" class="btn btn-dark">Catch Pokemon</a>
+  {% else %}
+  <a href="{{url_for('game.delete', name=pokemon.name)}}" id="delete_btn" class="btn btn-dark">Delete From Team</a>
+  </div>
+  {% endif %}
+
 {% endif %}
+
+{# <div class="card-body">
+  <a href="#" class="card-link">Card link</a>
+  <a href="#" class="card-link">Another link</a>
+</div> #}
+
 
 {% endblock %}

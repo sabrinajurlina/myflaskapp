@@ -1,0 +1,40 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+Opponents
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/show_players.css')}}">
+{% endblock %}
+
+{% block content %}
+<h1> Opponents </h1>
+<hr>
+
+{% if players %}
+    {% for player in players %}
+            {% if player.team.count()>=1 %}
+                <div id="opponents">
+                    <div class="card" style="width:100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{player['first_name'].title()}}</h5>
+                    </div>
+                {% for pokemon in player.team %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{pokemon.name.upper()}}, Base: {{pokemon.base_experience}}, Ability: {{pokemon.ability.title()}}</li>
+                {% endfor %}
+                        <li class="list-group-item">Wins: {{player.wins}}, Losses: {{player.losses}}</li>
+                        <li class="list-group-item">
+                            <a href="{{url_for('game.battle', id=player.id)}}" id="battle_btn">Battle Opponent</a>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            {% endif %}
+    {% endfor %}
+{% else %}
+    <p>We're sorry. There are no eligible opponents at this time. Come back later and try again!</p>
+{% endif %}
+
+{% endblock %}

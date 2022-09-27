@@ -1,0 +1,35 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+Winner
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/battle.css')}}">
+{% endblock %}
+
+{% block content %}
+<h1> Winner! </h1>
+<hr>
+{% if winner %}
+    {% if winner.team.count()>=1 %}
+        <div id="opponent">
+        <div class="card" style="width:50%;">
+        <div class="card-body">
+            <h5 class="card-title">{{winner['first_name'].title()}}</h5>
+        </div>
+            {% for pokemon in winner.team %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{pokemon.name.title()}}, BASE: {{pokemon.base_experience}}, ABILITY: {{pokemon.ability}}</li>
+                </ul>
+            {% endfor %}
+            <p> Wins: {{winner.wins}}, Losses: {{winner.losses}}</p>
+        </div>
+        </div>
+    {% endif %}
+    
+{% else %}
+    <p>We're sorry. We've encountered an unexpected error. Please try again!</p>
+{% endif %}
+
+{% endblock %}

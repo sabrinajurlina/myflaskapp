@@ -1,0 +1,38 @@
+#opponents .card{
+    color: white;
+    background-color: rgb(48, 48, 48);
+    font-family: 'Pokemon-solid', sans-serif;
+    font-size: small;
+}
+
+#opponents{
+    display: inline-flex;
+    justify-content: space-around;
+    margin-top: 2%;
+    margin-right: 2%;
+    background-color: rgb(48,48,48);
+}
+
+.card title {
+    text-align: center;
+}
+
+.card-title {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    font-family: 'Pokemon Solid', sans-serif;
+    font-size: xx-large;
+}
+
+#battle_btn{
+    display: inline-flex;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(48, 48, 48);
+    border: 2px solid rgb(243, 187, 4);
+    margin-left: 23%;
+    padding: 2%;
+    font-size: medium;
+}
+

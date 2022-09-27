@@ -23,7 +23,7 @@ h1{
 .card-title{
     background-color: rgb(48, 48, 48);
     font-size: 50px;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Pokemon Solid', sans-serif;                                                
     font-style: bold;
     text-align: center;
 }
@@ -35,6 +35,7 @@ h1{
 .card h5{
     background-color: rgb(48, 48, 48);
     color: white;
+    font-family: 'Pokemon Solid', sans-serif;
 }
 
 .card-body{

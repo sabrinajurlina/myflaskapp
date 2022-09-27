@@ -1,0 +1,43 @@
+{% extends 'base.html.j2' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/show_team.css')}}">
+{% endblock %}
+
+{% block title %}
+Your Team
+{% endblock %}
+
+{% block content %}
+
+<div id="title">
+<h1>{{current_user.first_name}}'s Team</h1>
+<hr>
+</div>
+
+    {% if team %}
+        {% for pokemon in team %}
+        <div id="team_container">
+            <div class="card" style="width:15rem;">
+            <img src="{{ pokemon.sprite }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{pokemon['name'].title()}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Base Experience: {{pokemon.base_experience}}</li>
+                <li class="list-group-item">HP: {{pokemon.hp}}</li>
+                <li class="list-group-item">Attack: {{pokemon.attack}}</li>
+                <li class="list-group-item">Defense: {{pokemon.defense}}</li>
+                <li class="list-group-item">Ability: {{pokemon.ability.title()}}</li>
+                <li class="list-group-item">
+                    <a href="{{url_for('game.delete', name=pokemon.name)}}" id="delete_btn">Release Pokemon</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>You haven't caught any Pokemon yet! Click "Search" to catch Pokemon and build your team.</p>
+    {% endif %}
+
+{% endblock %}
